@@ -3,6 +3,34 @@ import numpy as np
 
 from Tiles import RIGHT,LEFT,UP,DOWN
 
+
+"""
+
+This module defines the core data structures for the 8-puzzle problem.
+
+Classes:
+- Node:
+  Represents a search node in the search tree. Stores the current state,
+  parent node, action used to reach this state, depth, heuristic value,
+  and f-value for informed search.
+
+- EightPuzzle:
+  Represents the 8-puzzle problem itself. Includes:
+  - the initial state
+  - the goal state
+  - goal test
+  - locating the blank tile (0)
+  - finding legal moves
+  - applying a move to create a new state
+
+The state is represented as a 3x3 NumPy array.
+The blank tile is represented by 0.
+Moves are based on shifting the blank tile in one of four directions:
+LEFT, RIGHT, UP, DOWN.
+"""
+
+
+
 class Node:
     def __init__(self, state,parent,action ,heuristics=0):
         self.state = state
