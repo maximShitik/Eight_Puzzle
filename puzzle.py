@@ -1,11 +1,7 @@
 
 import numpy as np
 
-LEFT = (0,-1)
-RIGHT = (0,1)
-UP = (-1,0)
-DOWN = (1,0)
-
+from Tiles import RIGHT,LEFT,UP,DOWN
 
 class Node:
     def __init__(self, state,parent,action ,heuristics=0):
@@ -18,7 +14,7 @@ class Node:
 
 class EightPuzzle:
     def __init__(self,initial_state,goal):
-        self.initial_state = initial_state
+        self.state = initial_state
         self.goal = goal
 
     def is_goal(self,state)->bool:
@@ -42,16 +38,22 @@ class EightPuzzle:
         for action in [LEFT, RIGHT, UP, DOWN]:
             new_row = blank_row + action[0]
             new_col = blank_col + action[1]
-            
+
             if 0<= new_row < 3 and 0 <= new_col < 3:
                 possible_moves.append(action)
         return possible_moves
 
 
 
-    def apply_move (self,state,action):
-        pass
+    def apply_move (self,state,action) -> any:
 
+        curr_blank = self.find_blank_pos(state)
+      
+        new_state = state.copy()
+        new_position = (curr_blank[0] + action[0], curr_blank[1] + action[1])
+
+        new_state[curr_blank], new_state[new_position] = new_state[new_position], new_state[curr_blank]
     
+        return new_state
 
 
