@@ -1,7 +1,10 @@
 
 import numpy as np
+LEFT = (0,-1)
+RIGHT = (0,1)
+UP = (-1,0)
+DOWN = (1,0)
 
-from Tiles import RIGHT,LEFT,UP,DOWN
 
 
 """
@@ -32,11 +35,11 @@ LEFT, RIGHT, UP, DOWN.
 
 
 class Node:
-    def __init__(self, state,parent,action ,heuristics=0):
+    def __init__(self, state,parent,moved ,heuristics=0):
         self.state = state
         self.parent = parent
         self.depth = 0 if not parent else parent.depth + 1
-        self.action = action
+        self.moved = moved
         self.heuristics = heuristics
         self.f = self.depth + self.heuristics
 
