@@ -9,7 +9,7 @@ def print_results(algo_name,path,length,expanded):
 GOAL = [0,1,2,3,4,5,6,7,8]
 if __name__ == "__main__":
     # numbers = sys.argv[1:]
-    numbers = [1 ,2, 0 ,3, 4 ,5 ,6 ,7 ,8]
+    numbers = [1, 4 ,0 ,5 ,8, 2, 3, 6 ,7]
     numbers = [int(x) for x in numbers]
     initial_state  = np.array(numbers,dtype=np.uint8).reshape(3,3)
 
