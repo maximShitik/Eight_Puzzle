@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 from puzzle import EightPuzzle
-from algos import BFS
+from bfs import BFS
 
 def print_results(algo_name,path,length,expanded):
     print(f"Algorithm:{algo_name}\nPath: {' '.join(str(tile) for tile in path)}\nLength: {length}\nExpanded: {expanded}")
