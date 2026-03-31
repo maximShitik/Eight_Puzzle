@@ -1,6 +1,6 @@
 from collections import deque
 from puzzle import Node
-
+from helper import reconstruct_path
 
 def BFS(puzzle,initial_state):
     queue = deque()
@@ -34,10 +34,3 @@ def BFS(puzzle,initial_state):
                 queue.append(new_node)
                 visited.add(new_state.tobytes())
 
-def reconstruct_path(node):
-    path_list = []
-
-    while node.parent:
-        path_list.append(node.moved)
-        node = node.parent
-    return path_list[::-1]

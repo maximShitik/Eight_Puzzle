@@ -1,6 +1,7 @@
 import heapq
 from puzzle import Node
 from heuristics import liniar_conflict, manhattan_distance
+from helper import reconstruct_path
 
 
 
@@ -41,10 +42,3 @@ def aStar(puzzle,initial_state):
                 heapq.heappush(queue, (new_node.f, counter, new_node))
                 counter += 1
         
-def reconstruct_path(node):
-    path_list = []
-
-    while node.parent:
-        path_list.append(node.moved)
-        node = node.parent
-    return path_list[::-1]
