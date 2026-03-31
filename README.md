@@ -39,7 +39,9 @@ The system is composed of several modules:
     - Linear Conflict heuristic - https://www.cse.sc.edu/~mgv/csce580sp15/gradPres/HanssonMayerYung1992.pdf or https://youtu.be/8t3lPD2Qtao?si=H2hDI_KZBXNAl3Xw
 
 - **helper.py**
-  - Contains `reconstruct_path` to extract the solution path
+  - Contains:
+    - `reconstruct_path(node)` – reconstructs the solution path from the goal node back to the start node
+    - `expand(node, puzzle, heuristic=None)` – generates all valid successor nodes from a given state, and optionally computes heuristic values for informed search
 
 ### Data Structures Used
 
@@ -140,21 +142,62 @@ h(n) = Manhattan Distance
 For a given state:
 
 ```
-[[2, 1, 3],
- [4, 5, 6],
- [7, 8, 0]]
+[[1, 4, 0],
+ [5, 8, 2],
+ [3, 6, 7]]
 ```
 
-- Manhattan Distance = 2 (tiles 1 and 2 misplaced)
-- Linear conflict between 2 and 1 in row 0 → +2
+#### Manhattan Distance
 
-Total:
+We compute the distance of each tile from its goal position:
+
+- Tile 1 → (0,0) → goal (0,1) → distance = 1  
+- Tile 4 → (0,1) → goal (1,1) → distance = 1  
+- Tile 5 → (1,0) → goal (1,2) → distance = 2  
+- Tile 8 → (1,1) → goal (2,2) → distance = 2  
+- Tile 2 → (1,2) → goal (0,2) → distance = 1  
+- Tile 3 → (2,0) → goal (1,0) → distance = 1  
+- Tile 6 → (2,1) → goal (2,0) → distance = 1  
+- Tile 7 → (2,2) → goal (2,1) → distance = 1  
+
+Total Manhattan Distance:
 
 ```
-h(n) = 2 + 2 = 4
+h = 1 + 1 + 2 + 2 + 1 + 1 + 1 + 1 = 10
 ```
 
 ---
+
+#### Linear Conflicts
+
+- **Row 2**: tiles [3, 6, 7] all belong in this row  
+  Their correct order should be [6, 7, 8], but:
+  - 6 appears after 3 → conflict
+  - 7 appears after 6 → conflict  
+  → 2 conflicts
+
+- **Column 1**: tiles [4, 8, 6] belong in this column  
+  Their correct order should be [3, 4, 5], but:
+  - 8 and 6 are reversed  
+  → 1 conflict
+
+Total conflicts = 3
+
+Each conflict adds +2:
+
+```
+2 × 3 = 6
+```
+
+---
+
+#### Final Heuristic Value
+
+```
+h(n) = Manhattan + Linear Conflict
+     = 10 + 6
+     = 16
+```
 
 ### Consistency
 

@@ -1,11 +1,5 @@
 
 import numpy as np
-LEFT = (0,-1)
-RIGHT = (0,1)
-UP = (-1,0)
-DOWN = (1,0)
-
-
 
 """
 
@@ -32,6 +26,10 @@ Moves are based on shifting the blank tile in one of four directions:
 LEFT, RIGHT, UP, DOWN.
 """
 
+LEFT = (0,-1)
+RIGHT = (0,1)
+UP = (-1,0)
+DOWN = (1,0)
 
 
 class Node:

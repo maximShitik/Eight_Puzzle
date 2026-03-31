@@ -1,7 +1,7 @@
 import heapq
 from puzzle import Node
 from heuristics import liniar_conflict, manhattan_distance
-from helper import reconstruct_path
+from helper import reconstruct_path , expand
 
 
 
@@ -28,17 +28,9 @@ def aStar(puzzle,initial_state):
             return path, node.depth, expanded_counter
         
         expanded_counter += 1
-        
-        moves = puzzle.get_moves(node.state)
-        curr_blank = puzzle.find_blank_pos(node.state)
-        blank_row = curr_blank[0]
-        blank_col = curr_blank[1]
-
-        for move in moves:
-            new_state = puzzle.apply_move(node.state, move)
-            if new_state.tobytes() not in visited:
-                tile_moved = node.state[blank_row + move[0], blank_col + move[1]]
-                new_node = Node(new_state, node, tile_moved, heuristics=liniar_conflict(new_state))
-                heapq.heappush(queue, (new_node.f, counter, new_node))
+        children = expand(node,puzzle,heuristic=liniar_conflict)
+        for child in children:
+            if child.state.tobytes() not in visited:
+                heapq.heappush(queue, (child.f, counter, child))
                 counter += 1
         

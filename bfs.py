@@ -1,6 +1,6 @@
 from collections import deque
 from puzzle import Node
-from helper import reconstruct_path
+from helper import reconstruct_path , expand
 
 def BFS(puzzle,initial_state):
     queue = deque()
@@ -11,26 +11,17 @@ def BFS(puzzle,initial_state):
     expanded_counter = 0
 
     while queue:
-        
         node = queue.popleft()
         expanded_counter +=1
 
-        moves = puzzle.get_moves(node.state)
-
-        curr_blank = puzzle.find_blank_pos(node.state)
-        blank_row = curr_blank[0]
-        blank_col = curr_blank[1]
-
-        for move in moves:
-            new_state = puzzle.apply_move(node.state,move)
-            if new_state.tobytes() not in visited:
-                tile_moved = node.state[blank_row + move[0], blank_col + move[1]]
-                new_node = Node(new_state,node,tile_moved)
-
-                if puzzle.is_goal(new_state):
-                    path = reconstruct_path(new_node)
-                    return path, new_node.depth, expanded_counter
-                
-                queue.append(new_node)
-                visited.add(new_state.tobytes())
+        children = expand(node,puzzle)
+        for child in children:
+            if child.state.tobytes() not in visited:
+                if puzzle.is_goal(child.state):
+                    path = reconstruct_path(child)
+                    return path, child.depth, expanded_counter
+                queue.append(child)
+                visited.add(child.state.tobytes())
+    return None, 0, expanded_counter
+            
 
