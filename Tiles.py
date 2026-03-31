@@ -5,7 +5,7 @@ from bfs import BFS
 from a_star import aStar
 
 def print_results(algo_name,path,length,expanded):
-    print(f"Algorithm:{algo_name}\nPath: {' '.join(str(tile) for tile in path)}\nLength: {length}\nExpanded: {expanded}")
+    print(f"\nAlgorithm: {algo_name}\nPath: {' '.join(str(tile) for tile in path)}\nLength: {length}\nExpanded: {expanded}")
 
 GOAL = [0,1,2,3,4,5,6,7,8]
 if __name__ == "__main__":
