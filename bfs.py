@@ -26,9 +26,11 @@ def BFS(puzzle,initial_state):
             if new_state.tobytes() not in visited:
                 tile_moved = node.state[blank_row + move[0], blank_col + move[1]]
                 new_node = Node(new_state,node,tile_moved)
+
                 if puzzle.is_goal(new_state):
-                    path = reconstruct_path(node)
-                    return path, node.depth, expanded_counter
+                    path = reconstruct_path(new_node)
+                    return path, new_node.depth, expanded_counter
+                
                 queue.append(new_node)
                 visited.add(new_state.tobytes())
 

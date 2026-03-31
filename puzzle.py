@@ -40,7 +40,7 @@ class Node:
         self.parent = parent
         self.depth = 0 if not parent else parent.depth + 1
         self.moved = moved
-        self.heuristics = heuristics
+        self.heuristics = int(heuristics)
         self.f = self.depth + self.heuristics
 
 class EightPuzzle:
